@@ -12,12 +12,6 @@ class PrintClass:
         self.class_name_list = []
         self.num_all_attribute_list = []
         self.num_all_method_list = []
-        self.compo_1_to_1 = []
-        self.aggr_1_to_1 = []
-        self.compo_1_to_many = []
-        self.aggr_1_to_many = []
-        self.association_list = []
-        self.dependency_list = []
         self.class_list = []
 
     # Luna: load data from .docx file
