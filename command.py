@@ -32,7 +32,7 @@ class Command(Cmd):
 
     # Rajan
     # Change commands and options: Luna: /a; Rajan: /p; Clement: /l
-    def do_display(self, option):
+     def do_display(self, option):
         """
         Syntax: display [/a | /p | /l]
         Display bar chart, pie chart or line graph
@@ -42,15 +42,21 @@ class Command(Cmd):
         :return: none
         """
         if option and option.strip():
-            if option == "/a":
-                self.controller.create_bar_chart()
-            elif option == "/p":
-                self.controller.create_pie_chart()
-            elif option == "/l":
-                self.controller.create_line_chart()
+            self.chart(option)
         else:
             print("please choose one or see help display")
 
+    def chart(self, option):
+
+        dictory= {
+            "/a": "self.controller.create_bar_chart()",
+            "/p": "self.controller.create_pie_chart()",
+            "/l": "self.controller.create_line_chart()"
+        }
+        for index in dictory:
+            if option == index:
+                dictory[index])
+                
     def do_quit(self, line):
         print("Quitting ......")
         return True
