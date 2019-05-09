@@ -58,70 +58,38 @@ class PrintClass:
         self.class_list = class_list[1:]
         return self.class_list
 
-  # Clement
-    # def get_class_name(self, class_array):
-    #     for listItem in class_array:
-    #         if "class" in listItem:
-    #             temp_class = listItem[:listItem.index(" {")]
-    #             class_name = temp_class.split(' ')[1]
-    #             return class_name
-    # 
-    # def get_attributes(self, class_array):
-    #     attributes = []
-    #     for listItem in class_array:
-    #         if ":" in listItem and "(" not in listItem:
-    #             result = listItem.split(' ')
-    #             attributes.append(result[4])
-    #     num_attribute = len(attributes)
-    #     self.num_all_attribute_list.append(num_attribute)
-    #     return attributes
-    # 
-    # def get_methods(self, class_array):
-    #     methods = []
-    #     for listItem in class_array:
-    #         if "(" in listItem:
-    #             methods.append(listItem[:listItem.index("\n")-2].strip())
-    #     num_method = len(methods)
-    #     self.num_all_method_list.append(num_method)
-    #     return methods
+    def return_string(self, array, addon):
 
-    # Luna
-    # def get_relationship(self, class_name):
-    #     temp_relationship = []
-    #     for a_relationship in self.relationship_list:
-    #         r_class_name = a_relationship.split(" ")
-    #         first_c_name = r_class_name[0]
-    #         second_c_name = r_class_name[-1].replace("\n", "")
-    #         if class_name == first_c_name:
-    #             temp_relationship += self.identify_r_type(a_relationship,
-    #                                                       second_c_name)
-    #     return temp_relationship
-    # 
-    # # Luna
-    # def identify_r_type(self, a_relationship, name):
-    #     a_r = ''
-    #     if len(a_relationship.split(" ")) == 3:
-    #         if "*--" in a_relationship:
-    #             self.compo_1_to_1.append(name)
-    #             a_r += "        # self. my_" + name.lower() + " -> " + name\
-    #                 + "\n" + "        self." + name.lower() + " = " + "None \n"
-    #         elif "o--" in a_relationship:
-    #             self.aggr_1_to_1.append(name)
-    #         elif "<--" in a_relationship:
-    #             self.association_list.append(name)
-    #         elif "<.." in a_relationship:
-    #             self.dependency_list.append(name)
-    #     else:
-    #         if '"1" *-- "many"' in a_relationship:
-    #             self.compo_1_to_many.append(name)
-    #             a_r = "        # self. my_" + name.lower() + ": list" + " -> "\
-    #                   + name + "\n" + "        self." + name.lower() + " = "\
-    #                   + "None\n"
-    #         elif '"1" o-- "many"' in a_relationship:
-    #             self.aggr_1_to_many.append(name)
-    #     return a_r
+        result = ""
+        for line in array:
+            if addon is None:
+                result += line
+            else:
+                result += addon + line
+        return result
+
+    def validateAtt(self, array):
+
+        result = ""
+        for line in array:
+            try:
+                if Validator.validate_attribute_name(line):
+                    result += self.attrib_line(line)
+                else:
+                    raise NameError('Invalid name: ' + line)
+            except NameError as e:
+                print(e)
+
+        return result
+
+    def attrib_line(self, line):
+        result = '        self.' + \
+                  line + ' = ' + line + '\n'
+        return result
+    # Clement
 
     def output_class(self, class_item):
+
         class_name = self.x.get_class_name(class_item)
         self.class_name_list.append(class_name)
         attribute_list = self.x.get_attributes(class_item, self.num_all_attribute_list)
@@ -129,29 +97,19 @@ class PrintClass:
         relationship_list = self.x.get_relationship(class_name, self.relationship_list)
         result = "class " + class_name + ":\n    def __init__(self"
 
-        for listItem in attribute_list:
-            result += ', ' + listItem
+        result += self.return_string(attribute_list, ", ")
 
         result += '):\n'
 
         if Validator.validate_class_name(class_name):
             pass
 
-        for listItem in attribute_list:
-            try:
-                if Validator.validate_attribute_name(listItem):
-                    result += '        self.' + \
-                              listItem + ' = ' + listItem + '\n'
-                else:
-                    raise NameError('Invalid name: ' + listItem)
-            except NameError as e:
-                print(e)
+            result += self.validateAtt(attribute_list)
 
         if len(attribute_list) == 0:
             result += "        pass\n"
 
-        for list_item in relationship_list:
-            result += list_item
+            result += self.return_string(relationship_list, None)
 
         for listItem in method_list:
             if Validator.validate_method_name(listItem):
@@ -165,7 +123,7 @@ class PrintClass:
     def output_classes(self, file_dir):
         files = []
         for classItem in self.class_list:
-            files.append(file_dir + self.get_class_name(classItem) + '.py')
+            files.append(file_dir + self.x.get_class_name(classItem) + '.py')
         for classItem, file in zip(self.class_list, files):
             result = self.output_class(classItem)
             with open(file, "w") as output:
