@@ -46,16 +46,15 @@ class Command(Cmd):
         else:
             print("please choose one or see help display")
 
-    def chart(self, option):
-
-        dictory= {
+     def chart(self, option):
+        dictory = {
             "/a": "self.controller.create_bar_chart()",
             "/p": "self.controller.create_pie_chart()",
             "/l": "self.controller.create_line_chart()"
         }
         for index in dictory:
             if option == index:
-                dictory[index])
+                exec(dictory[index])
                 
     def do_quit(self, line):
         print("Quitting ......")
