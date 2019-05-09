@@ -62,32 +62,32 @@ class PrintClass:
         self.class_list = class_list[1:]
         return self.class_list
 
-    # Clement
-    def get_class_name(self, class_array):
-        for listItem in class_array:
-            if "class" in listItem:
-                temp_class = listItem[:listItem.index(" {")]
-                class_name = temp_class.split(' ')[1]
-                return class_name
-
-    def get_attributes(self, class_array):
-        attributes = []
-        for listItem in class_array:
-            if ":" in listItem and "(" not in listItem:
-                result = listItem.split(' ')
-                attributes.append(result[4])
-        num_attribute = len(attributes)
-        self.num_all_attribute_list.append(num_attribute)
-        return attributes
-
-    def get_methods(self, class_array):
-        methods = []
-        for listItem in class_array:
-            if "(" in listItem:
-                methods.append(listItem[:listItem.index("\n")-2].strip())
-        num_method = len(methods)
-        self.num_all_method_list.append(num_method)
-        return methods
+  # Clement
+    # def get_class_name(self, class_array):
+    #     for listItem in class_array:
+    #         if "class" in listItem:
+    #             temp_class = listItem[:listItem.index(" {")]
+    #             class_name = temp_class.split(' ')[1]
+    #             return class_name
+    # 
+    # def get_attributes(self, class_array):
+    #     attributes = []
+    #     for listItem in class_array:
+    #         if ":" in listItem and "(" not in listItem:
+    #             result = listItem.split(' ')
+    #             attributes.append(result[4])
+    #     num_attribute = len(attributes)
+    #     self.num_all_attribute_list.append(num_attribute)
+    #     return attributes
+    # 
+    # def get_methods(self, class_array):
+    #     methods = []
+    #     for listItem in class_array:
+    #         if "(" in listItem:
+    #             methods.append(listItem[:listItem.index("\n")-2].strip())
+    #     num_method = len(methods)
+    #     self.num_all_method_list.append(num_method)
+    #     return methods
 
     # Luna
     def get_relationship(self, class_name):
