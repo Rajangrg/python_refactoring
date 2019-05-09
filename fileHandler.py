@@ -7,6 +7,7 @@ import os
 class PrintClass:
 
     def __init__(self):
+        self.x = class_finder.ClassFinder()
         self.relationship_list = []
         self.class_name_list = []
         self.num_all_attribute_list = []
@@ -127,11 +128,11 @@ class PrintClass:
     #     return a_r
 
     def output_class(self, class_item):
-        class_name = self.get_class_name(class_item)
+        class_name = self.x.get_class_name(class_item)
         self.class_name_list.append(class_name)
-        attribute_list = self.get_attributes(class_item)
-        method_list = self.get_methods(class_item)
-        relationship_list = self.get_relationship(class_name)
+        attribute_list = self.x.get_attributes(class_item, self.num_all_attribute_list)
+        method_list = self.x.get_methods(class_item, self.num_all_method_list)
+        relationship_list = self.x.get_relationship(class_name, self.relationship_list)
         result = "class " + class_name + ":\n    def __init__(self"
 
         for listItem in attribute_list:
