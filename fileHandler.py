@@ -1,5 +1,6 @@
 import docx
 from validator import Validator
+import class_finder
 import os
 
 
