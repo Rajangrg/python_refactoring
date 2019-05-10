@@ -51,27 +51,27 @@ class ClassFinder(object):
 
     def identify_r_type(self, a_relationship, name):
         a_r = ''
+        dictionary = {"*--": "self.compo_1_to_1.append(name)",
+                      "o--": "self.aggr_1_to_1.append(name)",
+                      "<--": "self.association_list.append(name)",
+                      "<..": "self.dependency_list.append(name)",
+                      '"1"*--"many"': "self.compo_1_to_many.append"
+                                      "(name)",
+                      '"1"o--"many"': "self.aggr_1_to_many.append"
+                                      "(name)"}
+        temp = a_relationship.split(" ")
+        if len(temp) == 3:
+            for key in dictionary:
+                if temp[1] == key:
+                    exec(dictionary[key])
 
-        if len(a_relationship.split(" ")) == 3:
-            if "*--" in a_relationship:
-                self.compo_1_to_1.append(name)
-                a_r += "        # self. my_" + name.lower() + " -> " + name \
-                       + "\n" + "        self." + name.lower() + " = " + "None \n"
-            elif "o--" in a_relationship:
-                self.aggr_1_to_1.append(name)
-            elif "<--" in a_relationship:
-                self.association_list.append(name)
-            elif "<.." in a_relationship:
-                self.dependency_list.append(name)
-        else:
-            if '"1" *-- "many"' in a_relationship:
-                self.compo_1_to_many.append(name)
-                a_r = "        # self. my_" + name.lower() + ": list" + " -> " \
-                      + name + "\n" + "        self." + name.lower() + " = " \
+        if self.compo_1_to_1 is not None:
+            for i in self.compo_1_to_1:
+                a_r += "        # self. my_" + i.lower() + " -> " + i \
+                    + "\n" + "        self." + i.lower() + " = " + "None\n"
+        if self.compo_1_to_many is not None:
+            for i in self.compo_1_to_many:
+                a_r += "        # self. my_" + i.lower() + ": list" + " -> "\
+                      + name + "\n" + "        self." + i.lower() + " = "\
                       + "None\n"
-            elif '"1" o-- "many"' in a_relationship:
-                self.aggr_1_to_many.append(name)
         return a_r
-
-
-
