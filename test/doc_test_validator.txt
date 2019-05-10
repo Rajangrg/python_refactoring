@@ -1,0 +1,138 @@
+"""
+>>> from validator import Validator
+>>> Validator.validate_class_name("ClassBuilder")
+True
+>>> Validator.validate_class_name("ClassName123")
+True
+>>> Validator.validate_class_name("classBuilder")
+False
+>>> Validator.validate_class_name("C!#Name")
+False
+>>> Validator.validate_class_name("ClassName>")
+False
+>>> Validator.validate_class_name("1ClassName>")
+False
+>>> Validator.validate_attribute_name("Name")
+False
+>>> Validator.validate_attribute_name("and")
+False
+>>> Validator.validate_attribute_name("assert")
+False
+>>> Validator.validate_attribute_name("class")
+False
+>>> Validator.validate_attribute_name("continue")
+False
+>>> Validator.validate_attribute_name("def")
+False
+>>> Validator.validate_attribute_name("del")
+False
+>>> Validator.validate_attribute_name("elif")
+False
+>>> Validator.validate_attribute_name("else")
+False
+>>> Validator.validate_attribute_name("except")
+False
+>>> Validator.validate_attribute_name("exec")
+False
+>>> Validator.validate_attribute_name("finally")
+False
+>>> Validator.validate_attribute_name("for")
+False
+>>> Validator.validate_attribute_name("from")
+False
+>>> Validator.validate_attribute_name("global")
+False
+>>> Validator.validate_attribute_name("if")
+False
+>>> Validator.validate_attribute_name("import")
+False
+>>> Validator.validate_attribute_name("in")
+False
+>>> Validator.validate_attribute_name("is")
+False
+>>> Validator.validate_attribute_name("lambda")
+False
+>>> Validator.validate_attribute_name("not")
+False
+>>> Validator.validate_attribute_name("or")
+False
+>>> Validator.validate_attribute_name("pass")
+False
+>>> Validator.validate_attribute_name("print")
+False
+>>> Validator.validate_attribute_name("raise")
+False
+>>> Validator.validate_attribute_name("return")
+False
+>>> Validator.validate_attribute_name("try")
+False
+>>> Validator.validate_attribute_name("while")
+False
+>>> Validator.validate_attribute_name("break")
+False
+>>> Validator.validate_attribute_name("a")
+False
+>>> Validator.validate_attribute_name(1234)
+False
+>>> Validator.validate_attribute_name("attribute")
+True
+>>> Validator.validate_attribute_name("/&*(")
+False
+>>> Validator.validate_attribute_name("name1")
+False
+>>> Validator.validate_method_name("Name")
+False
+>>> Validator.validate_method_name("method_name")
+True
+>>> Validator.validate_method_name("get_A")
+False
+>>> Validator.validate_method_name("get")
+True
+>>> Validator.validate_method_name("_get")
+True
+>>> Validator.validate_method_name("get_method_name")
+True
+>>> Validator.validate_method_name("getName")
+False
+>>> Validator.validate_method_name("NameGet")
+False
+>>> Validator.validate_method_name("name")
+True
+>>> Validator.validate_method_name("name")
+True
+>>> Validator.validate_method_name("1_get")
+False
+>>> Validator.validate_method_name("@_get")
+False
+>>> Validator.validate_method_name("*name")
+False
+>>> Validator.validate_method_name("!name")
+False
+>>> Validator.validate_method_name(":method_name")
+False
+>>> Validator.validate_method_name("/get_name")
+False
+>>> Validator.validate_method_name("$name")
+False
+>>> Validator.validate_method_name("/name")
+False
+>>> Validator.validate_method_name("~name")
+False
+>>> Validator.validate_method_name("^name")
+False
+>>> Validator.validate_method_name("%name")
+False
+>>> Validator.validate_method_name("name")
+True
+>>> Validator.validate_method_name("get_name")
+True
+>>> Validator.validate_method_name("NAME_GET")
+False
+>>> Validator.validate_method_name("(get_name)")
+False
+>>> Validator.validate_method_name("MethodName>")
+False
+>>> Validator.validate_method_name("1methodName>")
+False
+
+"""
