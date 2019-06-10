@@ -7,6 +7,9 @@ class ClassFinder(object):
         self.aggr_1_to_many = []
         self.association_list = []
         self.dependency_list = []
+        self.class_name_list = []
+        self.num_all_attribute_list = []
+        self.num_all_method_list = []
 
     def get_class_name(self, class_array):
         for listItem in class_array:
@@ -15,23 +18,23 @@ class ClassFinder(object):
                 class_name = temp_class.split(' ')[1]
                 return class_name
 
-    def get_attributes(self, class_array, output_array):
+    def get_attributes(self, class_array):
         attributes = []
         for listItem in class_array:
             if ":" in listItem and "(" not in listItem:
                 result = listItem.split(' ')
                 attributes.append(result[4])
         num_attribute = len(attributes)
-        output_array.append(num_attribute)
+        self.num_all_attribute_list.append(num_attribute)
         return attributes
 
-    def get_methods(self, class_array, output_array):
+    def get_methods(self, class_array):
         methods = []
         for listItem in class_array:
             if "(" in listItem:
                 methods.append(listItem[:listItem.index("\n") - 2].strip())
         num_method = len(methods)
-        output_array.append(num_method)
+        self.num_all_method_list.append(num_method)
         return methods
 
         # Luna
@@ -46,8 +49,6 @@ class ClassFinder(object):
                 temp_relationship += self.identify_r_type(a_relationship,
                                                           second_c_name)
         return temp_relationship
-
-        # Luna
 
     def identify_r_type(self, a_relationship, name):
         a_r = ''
@@ -75,3 +76,10 @@ class ClassFinder(object):
                       + name + "\n" + "        self." + i.lower() + " = "\
                       + "None\n"
         return a_r
+
+    def get_all_num(self):
+        class_num = len(self.class_name_list)
+        attribute_num = sum(self.num_all_attribute_list)
+        method_num = sum(self.num_all_method_list)
+        all_num = [class_num, attribute_num, method_num]
+        return all_num

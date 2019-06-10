@@ -10,7 +10,6 @@ class Command(Cmd):
         self.prompt = ">>>"
         self.my_name = "unknown"
 
-    # Luna
     def do_load(self, file):
         """
         Syntax: load [file]
@@ -20,8 +19,7 @@ class Command(Cmd):
         """
         self.controller.load_file(file)
 
-    # Clement
-    def do_create_class_files(self, file_dir):
+    def do_c(self, file_dir):
         """
         Syntax: create_class_files [file_dir]
         Saves the file entered (either a .txt or docx file)
@@ -30,7 +28,6 @@ class Command(Cmd):
         """
         self.controller.save_file(file_dir)
 
-    # Rajan
     # Change commands and options: Luna: /a; Rajan: /p; Clement: /l
     def do_display(self, option):
         """
@@ -57,7 +54,7 @@ class Command(Cmd):
                 exec(dictionary[index])
 
     def do_quit(self, line):
-        print("Quitting ......")
+        print("Exiting command line ......")
         return True
 
 
